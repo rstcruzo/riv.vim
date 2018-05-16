@@ -16,28 +16,22 @@ let s:need_trans = v:version < 704 || (v:version == 704 && !has('patch122'))
 
 " Open a file.
 function! s:open(filename) "{{{
-  echom "Opening inside"
   let filename = fnamemodify(a:filename, ':p')
 
   " Detect desktop environment.
   if s:is_windows
-    echom "Is windows"
     " For URI only.
     if s:need_trans
       let filename = iconv(filename, &encoding, 'char')
     endif
     silent execute '!start rundll32 url.dll,FileProtocolHandler' filename
   elseif s:is_cygwin
-    echom "Is cygwin"
     " Cygwin.
     call system(printf('%s %s', 'cygstart',
           \ shellescape(filename)))
   elseif executable('xdg-open')
-    echom "Is linux"
     " Linux.
-    echom printf('%s %s &', 'xdg-open', shellescape(filename))
-    call system(printf('%s %s &', 'xdg-open',
-          \ shellescape(filename)))
+    call system(printf('%s %s &', 'xdg-open', filename))
   elseif exists('$KDE_FULL_SESSION') && $KDE_FULL_SESSION ==# 'true'
     " KDE.
     call system(printf('%s %s &', 'kioclient exec',
