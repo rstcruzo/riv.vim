@@ -35,7 +35,7 @@ function! s:open(filename) "{{{
   elseif executable('xdg-open')
     echom "Is linux"
     " Linux.
-    echom printf('%s %s &', 'xdg-open', shellscape(filename))
+    echom printf('%s %s &', 'xdg-open', shellescape(filename))
     call system(printf('%s %s &', 'xdg-open',
           \ shellescape(filename)))
   elseif exists('$KDE_FULL_SESSION') && $KDE_FULL_SESSION ==# 'true'
