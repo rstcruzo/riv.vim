@@ -31,7 +31,7 @@ function! s:open(filename) "{{{
           \ shellescape(filename)))
   elseif executable('xdg-open')
     " Linux.
-    call system(printf('%s %s', 'xdg-open', filename))
+    call system(printf('%s %s', 'xdg-open', shellescape(filename)))
   elseif exists('$KDE_FULL_SESSION') && $KDE_FULL_SESSION ==# 'true'
     " KDE.
     call system(printf('%s %s &', 'kioclient exec',
