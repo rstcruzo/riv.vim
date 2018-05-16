@@ -16,6 +16,7 @@ let s:need_trans = v:version < 704 || (v:version == 704 && !has('patch122'))
 
 " Open a file.
 function! s:open(filename) "{{{
+  echom "Opening inside"
   let filename = fnamemodify(a:filename, ':p')
 
   " Detect desktop environment.
